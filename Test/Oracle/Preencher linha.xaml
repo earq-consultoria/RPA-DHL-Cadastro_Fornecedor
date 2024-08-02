@@ -1,0 +1,1572 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Preencher_linha" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="UsoPretendido" Type="InArgument(x:String)" />
+    <x:Property Name="PisCofinsCsll" Type="InArgument(x:String)" />
+    <x:Property Name="PisCst" Type="InArgument(x:String)" />
+    <x:Property Name="CofinsCst" Type="InArgument(x:String)" />
+    <x:Property Name="BaseCalculoIss" Type="InArgument(x:String)" />
+    <x:Property Name="ValorIss" Type="InArgument(x:String)" />
+    <x:Property Name="MunicipioFilial" Type="InArgument(x:String)" />
+    <x:Property Name="AliquotaIss" Type="InArgument(x:String)" />
+    <x:Property Name="CodigoDoServicoLinha" Type="InArgument(x:String)" />
+    <x:Property Name="ValorTotal" Type="InArgument(x:String)" />
+    <x:Property Name="CodigoSOP" Type="InArgument(x:String)" />
+    <x:Property Name="CodigoTomador" Type="InArgument(x:String)" />
+    <x:Property Name="QuantidadeCalculada" Type="InArgument(x:String)" />
+    <x:Property Name="Indice" Type="InArgument(x:Int32)" />
+  </x:Members>
+  <VisualBasic.Settings>
+    <x:Null />
+  </VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1918,6216</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>Preencher_linha_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="44">
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="40">
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Collections</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.Java.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
+      <AssemblyReference>UiPath.Workflow</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="Preencher_linha" sap:VirtualizedContainerService.HintSize="1898,6156" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="vUsoPretendido" />
+      <Variable x:TypeArguments="x:Boolean" Name="pesquisaCfop" />
+      <Variable x:TypeArguments="x:String" Name="vPrecoUnitario" />
+      <Variable x:TypeArguments="x:String" Name="descricaoLinha" />
+      <Variable x:TypeArguments="x:String" Name="saldoPO" />
+      <Variable x:TypeArguments="x:String" Name="quantidade" />
+      <Variable x:TypeArguments="x:String" Name="precoUnitario" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:TypeInto ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" AlterIfDisabled="True" DisplayName="Type Into 'text Classificação'" sap:VirtualizedContainerService.HintSize="1856,134" sap2010:WorkflowViewState.IdRef="TypeInto_1" Text="[Config(&quot;ClassificacaoFiscal&quot;).ToString+ &quot;[k(enter)]&quot;]">
+      <ui:TypeInto.Target>
+        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="5c3ac335-dca9-4fbb-bc6f-f0bb56bf89d4" InformativeScreenshot="894b07685549385e0f7c27fb59f8b39f" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java name='*Classificação Fiscal RequiredList of Values' role='text' /&gt;">
+          <ui:Target.TimeoutMS>
+            <InArgument x:TypeArguments="x:Int32" />
+          </ui:Target.TimeoutMS>
+          <ui:Target.WaitForReady>
+            <InArgument x:TypeArguments="ui:WaitForReady" />
+          </ui:Target.WaitForReady>
+        </ui:Target>
+      </ui:TypeInto.Target>
+    </ui:TypeInto>
+    <If Condition="[UsoPretendido.Contains(&quot;INSUMO&quot;)]" sap:VirtualizedContainerService.HintSize="1856,208" sap2010:WorkflowViewState.IdRef="If_1">
+      <If.Then>
+        <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+          <Assign.To>
+            <OutArgument x:TypeArguments="x:String">[vUsoPretendido]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="x:String">SERVIÇOS - INSUMO</InArgument>
+          </Assign.Value>
+        </Assign>
+      </If.Then>
+      <If.Else>
+        <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+          <Assign.To>
+            <OutArgument x:TypeArguments="x:String">[vUsoPretendido]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="x:String">SERVIÇOS - USO E CONSUMO</InArgument>
+          </Assign.Value>
+        </Assign>
+      </If.Else>
+    </If>
+    <If sap2010:Annotation.AnnotationText="Tratamento mais de um uso pretendido e cst." Condition="[CodigoSOP.Equals(&quot;52&quot;)]" DisplayName="If CodigoSop = 52" sap:VirtualizedContainerService.HintSize="1856,1418" sap2010:WorkflowViewState.IdRef="If_9">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <If.Then>
+        <Sequence sap:VirtualizedContainerService.HintSize="1477,1243" sap2010:WorkflowViewState.IdRef="Sequence_5">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Text 'text  Descrição'" sap:VirtualizedContainerService.HintSize="1435,106" sap2010:WorkflowViewState.IdRef="GetValue_1">
+            <ui:GetValue.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="dced9740-c060-424d-9b64-34686c711dbf" InformativeScreenshot="b79048f77ca3d7c564f6a39dec6101fc" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java name='Descrição' role='text' /&gt;">
+                <ui:Target.TimeoutMS>
+                  <InArgument x:TypeArguments="x:Int32" />
+                </ui:Target.TimeoutMS>
+                <ui:Target.WaitForReady>
+                  <InArgument x:TypeArguments="ui:WaitForReady" />
+                </ui:Target.WaitForReady>
+              </ui:Target>
+            </ui:GetValue.Target>
+            <ui:GetValue.Value>
+              <OutArgument x:TypeArguments="x:String">[descricaoLinha]</OutArgument>
+            </ui:GetValue.Value>
+          </ui:GetValue>
+          <If Condition="[CodigoTomador.Equals(&quot;DOX&quot;)]" sap:VirtualizedContainerService.HintSize="1435,831" sap2010:WorkflowViewState.IdRef="If_10">
+            <If.Then>
+              <Sequence DisplayName="Assign cst usoPretendido DOX" sap:VirtualizedContainerService.HintSize="695,683" sap2010:WorkflowViewState.IdRef="Sequence_9">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <If Condition="[descricaoLinha.Trim.ToLower.Contains(Config(&quot;Desc_Aluguel&quot;).ToString) Or descricaoLinha.Trim.ToLower.Contains(Config(&quot;Desc_Energia&quot;).ToString)]" DisplayName="If aluguel ou energia" sap:VirtualizedContainerService.HintSize="653,500" sap2010:WorkflowViewState.IdRef="If_11">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <If.Then>
+                    <Sequence sap:VirtualizedContainerService.HintSize="304,352" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_5">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[vUsoPretendido]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">SERVIÇOS - INSUMO</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                      <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_6">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[CofinsCst]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">50</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                      <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_19">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[PisCst]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">50</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                    </Sequence>
+                  </If.Then>
+                  <If.Else>
+                    <Sequence sap:VirtualizedContainerService.HintSize="304,352" sap2010:WorkflowViewState.IdRef="Sequence_12">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_13">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[vUsoPretendido]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">SERVIÇOS - USO E CONSUMO</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                      <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_14">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[CofinsCst]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">70</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                      <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_20">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[PisCst]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">70</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                    </Sequence>
+                  </If.Else>
+                </If>
+                <ui:CommentOut DisplayName="Nova regra: Caso não seja Aluguel ou Energia o uso sempre será USO E CONSUMO e CST 70" sap:VirtualizedContainerService.HintSize="653,51" sap2010:WorkflowViewState.IdRef="CommentOut_1">
+                  <ui:CommentOut.Body>
+                    <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="242,143" sap2010:WorkflowViewState.IdRef="Sequence_33">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <If Condition="[descricaoLinha.Trim.ToLower.Contains(Config(&quot;Desc_Agua&quot;).ToString) Or descricaoLinha.Trim.ToLower.Contains(Config(&quot;Desc_Condominio&quot;).ToString)]" DisplayName="If agua ou condominio" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="If_12">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                      </If>
+                    </Sequence>
+                  </ui:CommentOut.Body>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </ui:CommentOut>
+              </Sequence>
+            </If.Then>
+            <If.Else>
+              <Sequence DisplayName="Assign cst usoPretendido DHL/ENE" sap:VirtualizedContainerService.HintSize="695,683" sap2010:WorkflowViewState.IdRef="Sequence_15">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <If Condition="[descricaoLinha.Trim.ToLower.Contains(Config(&quot;Desc_Aluguel&quot;).ToString) Or descricaoLinha.Trim.ToLower.Contains(Config(&quot;Desc_Energia&quot;).ToString)]" DisplayName="If aluguel ou energia" sap:VirtualizedContainerService.HintSize="653,500" sap2010:WorkflowViewState.IdRef="If_14">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <If.Then>
+                    <Sequence sap:VirtualizedContainerService.HintSize="304,352" sap2010:WorkflowViewState.IdRef="Sequence_13">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_15">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[vUsoPretendido]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">SERVIÇOS - INSUMO</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                      <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_16">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[CofinsCst]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">53</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                      <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_21">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[PisCst]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">53</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                    </Sequence>
+                  </If.Then>
+                  <If.Else>
+                    <Sequence sap:VirtualizedContainerService.HintSize="304,352" sap2010:WorkflowViewState.IdRef="Sequence_14">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_17">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[vUsoPretendido]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">SERVIÇOS - USO E CONSUMO</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                      <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_18">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[CofinsCst]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">70</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                      <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_22">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[PisCst]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">70</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                    </Sequence>
+                  </If.Else>
+                </If>
+                <ui:CommentOut DisplayName="Nova regra: Caso não seja Aluguel ou Energia o uso sempre será USO E CONSUMO e CST 70" sap:VirtualizedContainerService.HintSize="653,51" sap2010:WorkflowViewState.IdRef="CommentOut_2">
+                  <ui:CommentOut.Body>
+                    <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="242,143" sap2010:WorkflowViewState.IdRef="Sequence_34">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <If Condition="[descricaoLinha.Trim.ToLower.Contains(Config(&quot;Desc_Agua&quot;).ToString) Or descricaoLinha.Trim.ToLower.Contains(Config(&quot;Desc_Condominio&quot;).ToString)]" DisplayName="If agua ou condominio" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="If_15">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                      </If>
+                    </Sequence>
+                  </ui:CommentOut.Body>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </ui:CommentOut>
+              </Sequence>
+            </If.Else>
+          </If>
+          <ui:TypeInto ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" AlterIfDisabled="True" DisplayName="Type Into 'text Uso'" sap:VirtualizedContainerService.HintSize="1435,134" sap2010:WorkflowViewState.IdRef="TypeInto_10" Text="[vUsoPretendido+ &quot;[k(enter)]&quot;]">
+            <ui:TypeInto.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="02323e7f-3537-4138-9bf7-cac7b076766d" InformativeScreenshot="4b00aad7de0ad5c1f0cb2fd95013ca68" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java name='Uso Pretendido RequiredList of Values' role='text' /&gt;">
+                <ui:Target.TimeoutMS>
+                  <InArgument x:TypeArguments="x:Int32" />
+                </ui:Target.TimeoutMS>
+                <ui:Target.WaitForReady>
+                  <InArgument x:TypeArguments="ui:WaitForReady" />
+                </ui:Target.WaitForReady>
+              </ui:Target>
+            </ui:TypeInto.Target>
+          </ui:TypeInto>
+        </Sequence>
+      </If.Then>
+      <If.Else>
+        <ui:TypeInto ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" AlterIfDisabled="True" DisplayName="Type Into 'text Uso'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="TypeInto_2" Text="[vUsoPretendido+ &quot;[k(enter)]&quot;]">
+          <ui:TypeInto.Target>
+            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="fb1c665b-456f-430f-b947-3e7a648863bc" InformativeScreenshot="4b00aad7de0ad5c1f0cb2fd95013ca68" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java name='Uso Pretendido RequiredList of Values' role='text' /&gt;">
+              <ui:Target.TimeoutMS>
+                <InArgument x:TypeArguments="x:Int32" />
+              </ui:Target.TimeoutMS>
+              <ui:Target.WaitForReady>
+                <InArgument x:TypeArguments="ui:WaitForReady" />
+              </ui:Target.WaitForReady>
+            </ui:Target>
+          </ui:TypeInto.Target>
+        </ui:TypeInto>
+      </If.Else>
+    </If>
+    <ui:TypeInto ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" AlterIfDisabled="True" DisplayName="Type Into 'text CFOP'" sap:VirtualizedContainerService.HintSize="1856,134" sap2010:WorkflowViewState.IdRef="TypeInto_3" Text="1.999[k(enter)]">
+      <ui:TypeInto.Target>
+        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="88ed288b-0f2a-43d8-b456-e0e3e6e46007" InformativeScreenshot="16a3122f69f81fd55ab87afcf42ed415" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java name='CFOP RequiredList of Values' role='text' /&gt;">
+          <ui:Target.TimeoutMS>
+            <InArgument x:TypeArguments="x:Int32" />
+          </ui:Target.TimeoutMS>
+          <ui:Target.WaitForReady>
+            <InArgument x:TypeArguments="ui:WaitForReady" />
+          </ui:Target.WaitForReady>
+        </ui:Target>
+      </ui:TypeInto.Target>
+    </ui:TypeInto>
+    <ui:UiElementExists DisplayName="Element Exists 'CFOP search form'" Exists="[pesquisaCfop]" sap:VirtualizedContainerService.HintSize="950,106" sap2010:WorkflowViewState.IdRef="UiElementExists_1">
+      <ui:UiElementExists.Target>
+        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="97e5285e-e5a9-46a8-9408-60167a0bea54" InformativeScreenshot="75e83c89f735a6583eb3a35216a4750f" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java name='CFOP' role='internal frame' /&gt;">
+          <ui:Target.TimeoutMS>
+            <InArgument x:TypeArguments="x:Int32" />
+          </ui:Target.TimeoutMS>
+          <ui:Target.WaitForReady>
+            <InArgument x:TypeArguments="ui:WaitForReady" />
+          </ui:Target.WaitForReady>
+        </ui:Target>
+      </ui:UiElementExists.Target>
+    </ui:UiElementExists>
+    <If Condition="[pesquisaCfop]" DisplayName="If search form poped up" sap:VirtualizedContainerService.HintSize="950,51" sap2010:WorkflowViewState.IdRef="If_2">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <If.Then>
+        <ui:TypeInto ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" AlterIfDisabled="True" DisplayName="Type Into 'Localizar CFOP'" EmptyField="True" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="TypeInto_4" Text="2.999[k(enter)]">
+          <ui:TypeInto.Target>
+            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="9af0a5bb-8a93-489f-8819-dc071d26be0b" InformativeScreenshot="182dc5a27c43763e84b3e3e6366b8d89" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java name='CFOP' role='internal frame' /&gt;&lt;java name='*Find*' role='text' /&gt;">
+              <ui:Target.TimeoutMS>
+                <InArgument x:TypeArguments="x:Int32" />
+              </ui:Target.TimeoutMS>
+              <ui:Target.WaitForReady>
+                <InArgument x:TypeArguments="ui:WaitForReady" />
+              </ui:Target.WaitForReady>
+            </ui:Target>
+          </ui:TypeInto.Target>
+        </ui:TypeInto>
+      </If.Then>
+      <If.Else>
+        <ui:Comment sap:VirtualizedContainerService.HintSize="334,55" sap2010:WorkflowViewState.IdRef="Comment_1" Text="// Does nothing CFOP is correct" />
+      </If.Else>
+    </If>
+    <If Condition="[Not &quot;67&quot;.Equals(CodigoSOP)]" DisplayName="If Verifica se oCodigoSOPdiferente de 67 (mercadoria) para verificar preco unitario" sap:VirtualizedContainerService.HintSize="950,696" sap2010:WorkflowViewState.IdRef="If_8">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <If.Then>
+        <Sequence DisplayName="Verificar se o preco unitario e igual a R$1,00" sap:VirtualizedContainerService.HintSize="526,548" sap2010:WorkflowViewState.IdRef="Sequence_4">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="text" DisplayName="Get Attribute 'text Preço Unitario'" sap:VirtualizedContainerService.HintSize="484,134" sap2010:WorkflowViewState.IdRef="GetAttribute_1">
+            <ui:GetAttribute.Result>
+              <OutArgument x:TypeArguments="x:String">[vPrecoUnitario]</OutArgument>
+            </ui:GetAttribute.Result>
+            <ui:GetAttribute.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="bf290587-40a2-4605-bc3c-1d71d7dc90b6" InformativeScreenshot="b61fb9b282d479cfcfd1bdf993a1e118" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java name='Preço Unitário Required' role='text' /&gt;">
+                <ui:Target.TimeoutMS>
+                  <InArgument x:TypeArguments="x:Int32" />
+                </ui:Target.TimeoutMS>
+                <ui:Target.WaitForReady>
+                  <InArgument x:TypeArguments="ui:WaitForReady" />
+                </ui:Target.WaitForReady>
+              </ui:Target>
+            </ui:GetAttribute.Target>
+          </ui:GetAttribute>
+          <If Condition="[&quot;1&quot;.Equals(vPrecoUnitario) Or &quot;1,00&quot;.Equals(vPrecoUnitario)]" DisplayName="If se for igual a R$1,00 preenche a quantidade com o ValorTotal" sap:VirtualizedContainerService.HintSize="484,282" sap2010:WorkflowViewState.IdRef="If_7">
+            <If.Then>
+              <ui:TypeInto ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" AlterIfDisabled="True" DisplayName="Type Into 'text Quantidade'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="TypeInto_9" Text="[ValorTotal + &quot;[k(enter)]&quot;]">
+                <ui:TypeInto.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="3dcd2113-832c-4123-98e4-1002260d7470" InformativeScreenshot="1106c37c5f8f4a48fefb91cb7b54b751" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java name='Quantidade Required' role='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:TypeInto.Target>
+              </ui:TypeInto>
+            </If.Then>
+          </If>
+        </Sequence>
+      </If.Then>
+    </If>
+    <If sap2010:Annotation.AnnotationText="No caso de um lançamento de N Linhas com que o valor do pedido seja menor que o valor da linha o preenchimento da quantidade é a calculada.&#xA;&#xA;" Condition="[Not &quot;&quot;.Equals(QuantidadeCalculada)]" DisplayName="If Verifica se o campo QuantidadeCalculada é vazio" sap:VirtualizedContainerService.HintSize="950,354" sap2010:WorkflowViewState.IdRef="If_16">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <If.Then>
+        <ui:TypeInto ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" AlterIfDisabled="True" DisplayName="Type Into 'text Quantidade'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="TypeInto_11" Text="[QuantidadeCalculada + &quot;[k(enter)]&quot;]">
+          <ui:TypeInto.Target>
+            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="761f08c5-71af-4ccc-9acb-a7660cd05e19" InformativeScreenshot="1106c37c5f8f4a48fefb91cb7b54b751" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java name='Quantidade Required' role='text' /&gt;">
+              <ui:Target.TimeoutMS>
+                <InArgument x:TypeArguments="x:Int32" />
+              </ui:Target.TimeoutMS>
+              <ui:Target.WaitForReady>
+                <InArgument x:TypeArguments="ui:WaitForReady" />
+              </ui:Target.WaitForReady>
+            </ui:Target>
+          </ui:TypeInto.Target>
+        </ui:TypeInto>
+      </If.Then>
+    </If>
+    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateClick="{x:Null}" AlterIfDisabled="True" ClickType="CLICK_SINGLE" DisplayName="Click 'page tab'" sap:VirtualizedContainerService.HintSize="950,106" sap2010:WorkflowViewState.IdRef="Click_1" KeyModifiers="None" MouseButton="BTN_LEFT">
+      <ui:Click.CursorPosition>
+        <ui:CursorPosition Position="Center">
+          <ui:CursorPosition.OffsetX>
+            <InArgument x:TypeArguments="x:Int32" />
+          </ui:CursorPosition.OffsetX>
+          <ui:CursorPosition.OffsetY>
+            <InArgument x:TypeArguments="x:Int32" />
+          </ui:CursorPosition.OffsetY>
+        </ui:CursorPosition>
+      </ui:Click.CursorPosition>
+      <ui:Click.Target>
+        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="30f3a030-2c46-45ac-823c-6c154278c607" InformativeScreenshot="3ee6f7863b982afbaf82020f3388fc48" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java name='Outras Informações' role='page tab' /&gt;">
+          <ui:Target.TimeoutMS>
+            <InArgument x:TypeArguments="x:Int32" />
+          </ui:Target.TimeoutMS>
+          <ui:Target.WaitForReady>
+            <InArgument x:TypeArguments="ui:WaitForReady" />
+          </ui:Target.WaitForReady>
+        </ui:Target>
+      </ui:Click.Target>
+    </ui:Click>
+    <ui:TypeInto ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" AlterIfDisabled="True" DisplayName="Type Into 'text Outras'" sap:VirtualizedContainerService.HintSize="950,134" sap2010:WorkflowViewState.IdRef="TypeInto_5" Text="[Config(&quot;TipoDeOperacaoFiscal&quot;).ToString]">
+      <ui:TypeInto.Target>
+        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="5173f05a-3f96-4e25-92e8-62f4777567f6" InformativeScreenshot="f3697b0f242c51b5b231ccdf19466356" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java name='Outras Informações*' role='text' /&gt;">
+          <ui:Target.TimeoutMS>
+            <InArgument x:TypeArguments="x:Int32" />
+          </ui:Target.TimeoutMS>
+          <ui:Target.WaitForReady>
+            <InArgument x:TypeArguments="ui:WaitForReady" />
+          </ui:Target.WaitForReady>
+        </ui:Target>
+      </ui:TypeInto.Target>
+    </ui:TypeInto>
+    <If Condition="[Not String.IsNullOrEmpty(PisCofinsCsll)]" sap:VirtualizedContainerService.HintSize="950,282" sap2010:WorkflowViewState.IdRef="If_3">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <If.Then>
+        <ui:TypeInto ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" AlterIfDisabled="True" DisplayName="Type Into 'text Grupo'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="TypeInto_6" Text="[PisCofinsCsll]">
+          <ui:TypeInto.Target>
+            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="ddd26ae2-8d37-4743-9513-4249e3fb29dd" InformativeScreenshot="04598b6f88870e995ca638399a817665" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java name='Grupo de Retenção de Impostos na FonteList of Values' role='text' /&gt;">
+              <ui:Target.TimeoutMS>
+                <InArgument x:TypeArguments="x:Int32" />
+              </ui:Target.TimeoutMS>
+              <ui:Target.WaitForReady>
+                <InArgument x:TypeArguments="ui:WaitForReady" />
+              </ui:Target.WaitForReady>
+            </ui:Target>
+          </ui:TypeInto.Target>
+        </ui:TypeInto>
+      </If.Then>
+    </If>
+    <Sequence DisplayName="Calcula o valor total do PO - Indice=1" sap:VirtualizedContainerService.HintSize="950,606" sap2010:WorkflowViewState.IdRef="Sequence_32">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Assign DisplayName="Incrementa indice" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_40">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:Int32">[Indice]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:Int32">1</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Sequence DisplayName="Obtem saldo do PO" sap:VirtualizedContainerService.HintSize="484,66" sap2010:WorkflowViewState.IdRef="Sequence_31">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <If Condition="[indice=1]" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="If_17">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <If.Then>
+            <Sequence sap:VirtualizedContainerService.HintSize="200,66" sap2010:WorkflowViewState.IdRef="Sequence_16">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="text" DisplayName="Get Attribute 'text Preço Unitario'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="GetAttribute_2">
+                <ui:GetAttribute.Result>
+                  <OutArgument x:TypeArguments="x:String">[precoUnitario]</OutArgument>
+                </ui:GetAttribute.Result>
+                <ui:GetAttribute.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="bf2b5a92-7a1a-4f5a-ba66-1000b06332bc" InformativeScreenshot="914948c51fca1ee4cdb9b80bc684dfca" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java idx='{{Indice}}' name='Preço Unitário*' role='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:GetAttribute.Target>
+              </ui:GetAttribute>
+              <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="text" DisplayName="Get Attribute 'text Quantidade'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="GetAttribute_3">
+                <ui:GetAttribute.Result>
+                  <OutArgument x:TypeArguments="x:String">[quantidade]</OutArgument>
+                </ui:GetAttribute.Result>
+                <ui:GetAttribute.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="8f76a645-e3c1-44d0-80a5-fb19f635ef74" InformativeScreenshot="87df21fd2673912379a01801f02153e6" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java idx='{{Indice}}' name='Quantidade*' role='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:GetAttribute.Target>
+              </ui:GetAttribute>
+              <Assign DisplayName="Incrementa indice" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_23">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[saldoPO]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[Math.Round(Convert.ToDouble(quantidade.Replace(",","."))*Convert.ToDouble(precoUnitario.Replace(",",".")),2).ToString.Replace(".",",")]</InArgument>
+                </Assign.Value>
+              </Assign>
+            </Sequence>
+          </If.Then>
+        </If>
+        <If Condition="[indice=2]" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="If_18">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <If.Then>
+            <Sequence sap:VirtualizedContainerService.HintSize="376,500" sap2010:WorkflowViewState.IdRef="Sequence_17">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="text" DisplayName="Get Attribute 'text Preço Unitario'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="GetAttribute_4">
+                <ui:GetAttribute.Result>
+                  <OutArgument x:TypeArguments="x:String">[precoUnitario]</OutArgument>
+                </ui:GetAttribute.Result>
+                <ui:GetAttribute.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="d4174cfe-eadc-44f9-a7cd-81ae6e7029fb" InformativeScreenshot="914948c51fca1ee4cdb9b80bc684dfca" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java idx='2' name='Preço Unitário Required' role='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:GetAttribute.Target>
+              </ui:GetAttribute>
+              <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="text" DisplayName="Get Attribute 'text Quantidade'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="GetAttribute_5">
+                <ui:GetAttribute.Result>
+                  <OutArgument x:TypeArguments="x:String">[quantidade]</OutArgument>
+                </ui:GetAttribute.Result>
+                <ui:GetAttribute.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="53747f25-f9ec-48ad-8f04-e7ef10d079f5" InformativeScreenshot="87df21fd2673912379a01801f02153e6" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java idx='2' name='Quantidade Required' role='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:GetAttribute.Target>
+              </ui:GetAttribute>
+              <Assign DisplayName="Incrementa indice" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_24">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[saldoPO]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[Math.Round(Convert.ToDouble(quantidade.Replace(",","."))*Convert.ToDouble(precoUnitario.Replace(",",".")),2).ToString.Replace(".",",")]</InArgument>
+                </Assign.Value>
+              </Assign>
+            </Sequence>
+          </If.Then>
+        </If>
+        <If Condition="[indice=3]" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="If_19">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <If.Then>
+            <Sequence sap:VirtualizedContainerService.HintSize="376,500" sap2010:WorkflowViewState.IdRef="Sequence_18">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="text" DisplayName="Get Attribute 'text Preço Unitario'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="GetAttribute_6">
+                <ui:GetAttribute.Result>
+                  <OutArgument x:TypeArguments="x:String">[precoUnitario]</OutArgument>
+                </ui:GetAttribute.Result>
+                <ui:GetAttribute.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="f44fe978-e912-408e-894e-8eb88f6394af" InformativeScreenshot="914948c51fca1ee4cdb9b80bc684dfca" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java idx='3' name='Preço Unitário Required' role='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:GetAttribute.Target>
+              </ui:GetAttribute>
+              <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="text" DisplayName="Get Attribute 'text Quantidade'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="GetAttribute_7">
+                <ui:GetAttribute.Result>
+                  <OutArgument x:TypeArguments="x:String">[quantidade]</OutArgument>
+                </ui:GetAttribute.Result>
+                <ui:GetAttribute.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="97809082-f752-477f-a4b8-89bbe4de69a4" InformativeScreenshot="87df21fd2673912379a01801f02153e6" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java idx='3' name='Quantidade Required' role='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:GetAttribute.Target>
+              </ui:GetAttribute>
+              <Assign DisplayName="Incrementa indice" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_25">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[saldoPO]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[Math.Round(Convert.ToDouble(quantidade.Replace(",","."))*Convert.ToDouble(precoUnitario.Replace(",",".")),2).ToString.Replace(".",",")]</InArgument>
+                </Assign.Value>
+              </Assign>
+            </Sequence>
+          </If.Then>
+        </If>
+        <If Condition="[indice=4]" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="If_20">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <If.Then>
+            <Sequence sap:VirtualizedContainerService.HintSize="376,500" sap2010:WorkflowViewState.IdRef="Sequence_19">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="text" DisplayName="Get Attribute 'text Preço Unitario'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="GetAttribute_8">
+                <ui:GetAttribute.Result>
+                  <OutArgument x:TypeArguments="x:String">[precoUnitario]</OutArgument>
+                </ui:GetAttribute.Result>
+                <ui:GetAttribute.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="940b5eb6-92ec-4874-b1ae-0282d4dff45c" InformativeScreenshot="914948c51fca1ee4cdb9b80bc684dfca" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java idx='4' name='Preço Unitário Required' role='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:GetAttribute.Target>
+              </ui:GetAttribute>
+              <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="text" DisplayName="Get Attribute 'text Quantidade'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="GetAttribute_9">
+                <ui:GetAttribute.Result>
+                  <OutArgument x:TypeArguments="x:String">[quantidade]</OutArgument>
+                </ui:GetAttribute.Result>
+                <ui:GetAttribute.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="825f72d9-22d8-4759-83a4-67ad54e03c38" InformativeScreenshot="87df21fd2673912379a01801f02153e6" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java idx='4' name='Quantidade Required' role='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:GetAttribute.Target>
+              </ui:GetAttribute>
+              <Assign DisplayName="Incrementa indice" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_26">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[saldoPO]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[Math.Round(Convert.ToDouble(quantidade.Replace(",","."))*Convert.ToDouble(precoUnitario.Replace(",",".")),2).ToString.Replace(".",",")]</InArgument>
+                </Assign.Value>
+              </Assign>
+            </Sequence>
+          </If.Then>
+        </If>
+        <If Condition="[indice=5]" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="If_21">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <If.Then>
+            <Sequence sap:VirtualizedContainerService.HintSize="376,500" sap2010:WorkflowViewState.IdRef="Sequence_20">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="text" DisplayName="Get Attribute 'text Preço Unitario'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="GetAttribute_10">
+                <ui:GetAttribute.Result>
+                  <OutArgument x:TypeArguments="x:String">[precoUnitario]</OutArgument>
+                </ui:GetAttribute.Result>
+                <ui:GetAttribute.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="0b47d844-3b99-4d37-b9f3-bed7d035bc83" InformativeScreenshot="914948c51fca1ee4cdb9b80bc684dfca" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java idx='5' name='Preço Unitário Required' role='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:GetAttribute.Target>
+              </ui:GetAttribute>
+              <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="text" DisplayName="Get Attribute 'text Quantidade'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="GetAttribute_11">
+                <ui:GetAttribute.Result>
+                  <OutArgument x:TypeArguments="x:String">[quantidade]</OutArgument>
+                </ui:GetAttribute.Result>
+                <ui:GetAttribute.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="97fa222b-edad-4b4c-ba87-8f9647c61b07" InformativeScreenshot="87df21fd2673912379a01801f02153e6" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java idx='5' name='Quantidade Required' role='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:GetAttribute.Target>
+              </ui:GetAttribute>
+              <Assign DisplayName="Incrementa indice" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_27">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[saldoPO]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[Math.Round(Convert.ToDouble(quantidade.Replace(",","."))*Convert.ToDouble(precoUnitario.Replace(",",".")),2).ToString.Replace(".",",")]</InArgument>
+                </Assign.Value>
+              </Assign>
+            </Sequence>
+          </If.Then>
+        </If>
+        <If Condition="[indice=6]" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="If_22">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <If.Then>
+            <Sequence sap:VirtualizedContainerService.HintSize="376,500" sap2010:WorkflowViewState.IdRef="Sequence_21">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="text" DisplayName="Get Attribute 'text Preço Unitario'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="GetAttribute_12">
+                <ui:GetAttribute.Result>
+                  <OutArgument x:TypeArguments="x:String">[precoUnitario]</OutArgument>
+                </ui:GetAttribute.Result>
+                <ui:GetAttribute.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="abab0e03-95e1-43bd-a1c4-acef45d84c5b" InformativeScreenshot="914948c51fca1ee4cdb9b80bc684dfca" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java idx='6' name='Preço Unitário Required' role='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:GetAttribute.Target>
+              </ui:GetAttribute>
+              <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="text" DisplayName="Get Attribute 'text Quantidade'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="GetAttribute_13">
+                <ui:GetAttribute.Result>
+                  <OutArgument x:TypeArguments="x:String">[quantidade]</OutArgument>
+                </ui:GetAttribute.Result>
+                <ui:GetAttribute.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="853929f6-b42d-4b92-9d03-46e258bfe323" InformativeScreenshot="87df21fd2673912379a01801f02153e6" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java idx='6' name='Quantidade Required' role='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:GetAttribute.Target>
+              </ui:GetAttribute>
+              <Assign DisplayName="Incrementa indice" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_28">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[saldoPO]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[Math.Round(Convert.ToDouble(quantidade.Replace(",","."))*Convert.ToDouble(precoUnitario.Replace(",",".")),2).ToString.Replace(".",",")]</InArgument>
+                </Assign.Value>
+              </Assign>
+            </Sequence>
+          </If.Then>
+        </If>
+        <If Condition="[indice=7]" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="If_23">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <If.Then>
+            <Sequence sap:VirtualizedContainerService.HintSize="376,500" sap2010:WorkflowViewState.IdRef="Sequence_22">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="text" DisplayName="Get Attribute 'text Preço Unitario'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="GetAttribute_14">
+                <ui:GetAttribute.Result>
+                  <OutArgument x:TypeArguments="x:String">[precoUnitario]</OutArgument>
+                </ui:GetAttribute.Result>
+                <ui:GetAttribute.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="f757a0f6-881d-4ef2-a20c-dc604412dcb4" InformativeScreenshot="914948c51fca1ee4cdb9b80bc684dfca" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java idx='7' name='Preço Unitário Required' role='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:GetAttribute.Target>
+              </ui:GetAttribute>
+              <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="text" DisplayName="Get Attribute 'text Quantidade'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="GetAttribute_15">
+                <ui:GetAttribute.Result>
+                  <OutArgument x:TypeArguments="x:String">[quantidade]</OutArgument>
+                </ui:GetAttribute.Result>
+                <ui:GetAttribute.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="020ed01a-b284-4053-9a9d-e95e8345af50" InformativeScreenshot="87df21fd2673912379a01801f02153e6" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java idx='7' name='Quantidade Required' role='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:GetAttribute.Target>
+              </ui:GetAttribute>
+              <Assign DisplayName="Incrementa indice" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_29">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[saldoPO]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[Math.Round(Convert.ToDouble(quantidade.Replace(",","."))*Convert.ToDouble(precoUnitario.Replace(",",".")),2).ToString.Replace(".",",")]</InArgument>
+                </Assign.Value>
+              </Assign>
+            </Sequence>
+          </If.Then>
+        </If>
+        <If Condition="[indice=8]" sap:VirtualizedContainerService.HintSize="200,52" sap2010:WorkflowViewState.IdRef="If_24">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <If.Then>
+            <Sequence sap:VirtualizedContainerService.HintSize="376,500" sap2010:WorkflowViewState.IdRef="Sequence_23">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="text" DisplayName="Get Attribute 'text Preço Unitario'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="GetAttribute_16">
+                <ui:GetAttribute.Result>
+                  <OutArgument x:TypeArguments="x:String">[precoUnitario]</OutArgument>
+                </ui:GetAttribute.Result>
+                <ui:GetAttribute.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="0eb18bfe-a170-4490-8add-ef2187647470" InformativeScreenshot="914948c51fca1ee4cdb9b80bc684dfca" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java idx='8' name='Preço Unitário Required' role='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:GetAttribute.Target>
+              </ui:GetAttribute>
+              <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="text" DisplayName="Get Attribute 'text Quantidade'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="GetAttribute_17">
+                <ui:GetAttribute.Result>
+                  <OutArgument x:TypeArguments="x:String">[quantidade]</OutArgument>
+                </ui:GetAttribute.Result>
+                <ui:GetAttribute.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="b66a5cc8-98fb-4d70-b894-92afabee054c" InformativeScreenshot="87df21fd2673912379a01801f02153e6" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java idx='8' name='Quantidade Required' role='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:GetAttribute.Target>
+              </ui:GetAttribute>
+              <Assign DisplayName="Incrementa indice" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_30">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[saldoPO]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[Math.Round(Convert.ToDouble(quantidade.Replace(",","."))*Convert.ToDouble(precoUnitario.Replace(",",".")),2).ToString.Replace(".",",")]</InArgument>
+                </Assign.Value>
+              </Assign>
+            </Sequence>
+          </If.Then>
+        </If>
+        <If Condition="[indice=9]" sap:VirtualizedContainerService.HintSize="200,52" sap2010:WorkflowViewState.IdRef="If_25">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <If.Then>
+            <Sequence sap:VirtualizedContainerService.HintSize="376,500" sap2010:WorkflowViewState.IdRef="Sequence_24">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="text" DisplayName="Get Attribute 'text Preço Unitario'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="GetAttribute_18">
+                <ui:GetAttribute.Result>
+                  <OutArgument x:TypeArguments="x:String">[precoUnitario]</OutArgument>
+                </ui:GetAttribute.Result>
+                <ui:GetAttribute.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="82a40b7f-aa9a-402b-9053-1a8b968c45af" InformativeScreenshot="914948c51fca1ee4cdb9b80bc684dfca" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java idx='9' name='Preço Unitário Required' role='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:GetAttribute.Target>
+              </ui:GetAttribute>
+              <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="text" DisplayName="Get Attribute 'text Quantidade'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="GetAttribute_19">
+                <ui:GetAttribute.Result>
+                  <OutArgument x:TypeArguments="x:String">[quantidade]</OutArgument>
+                </ui:GetAttribute.Result>
+                <ui:GetAttribute.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="23c397b8-61f3-4b3a-87bb-9e7f50e98d27" InformativeScreenshot="87df21fd2673912379a01801f02153e6" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java idx='9' name='Quantidade Required' role='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:GetAttribute.Target>
+              </ui:GetAttribute>
+              <Assign DisplayName="Incrementa indice" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_31">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[saldoPO]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[Math.Round(Convert.ToDouble(quantidade.Replace(",","."))*Convert.ToDouble(precoUnitario.Replace(",",".")),2).ToString.Replace(".",",")]</InArgument>
+                </Assign.Value>
+              </Assign>
+            </Sequence>
+          </If.Then>
+        </If>
+        <If Condition="[indice=10]" sap:VirtualizedContainerService.HintSize="200,52" sap2010:WorkflowViewState.IdRef="If_26">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <If.Then>
+            <Sequence sap:VirtualizedContainerService.HintSize="376,500" sap2010:WorkflowViewState.IdRef="Sequence_25">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="text" DisplayName="Get Attribute 'text Preço Unitario'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="GetAttribute_20">
+                <ui:GetAttribute.Result>
+                  <OutArgument x:TypeArguments="x:String">[precoUnitario]</OutArgument>
+                </ui:GetAttribute.Result>
+                <ui:GetAttribute.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="3045b231-3129-40fb-beb0-a1d64d70387e" InformativeScreenshot="914948c51fca1ee4cdb9b80bc684dfca" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java idx='10' name='Preço Unitário Required' role='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:GetAttribute.Target>
+              </ui:GetAttribute>
+              <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="text" DisplayName="Get Attribute 'text Quantidade'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="GetAttribute_21">
+                <ui:GetAttribute.Result>
+                  <OutArgument x:TypeArguments="x:String">[quantidade]</OutArgument>
+                </ui:GetAttribute.Result>
+                <ui:GetAttribute.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="2edd8ebc-080d-4b4a-a0c0-d24e468d942a" InformativeScreenshot="87df21fd2673912379a01801f02153e6" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java idx='10' name='Quantidade Required' role='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:GetAttribute.Target>
+              </ui:GetAttribute>
+              <Assign DisplayName="Incrementa indice" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_32">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[saldoPO]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[Math.Round(Convert.ToDouble(quantidade.Replace(",","."))*Convert.ToDouble(precoUnitario.Replace(",",".")),2).ToString.Replace(".",",")]</InArgument>
+                </Assign.Value>
+              </Assign>
+            </Sequence>
+          </If.Then>
+        </If>
+        <If Condition="[indice=11]" sap:VirtualizedContainerService.HintSize="200,52" sap2010:WorkflowViewState.IdRef="If_27">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <If.Then>
+            <Sequence sap:VirtualizedContainerService.HintSize="376,500" sap2010:WorkflowViewState.IdRef="Sequence_26">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="text" DisplayName="Get Attribute 'text Preço Unitario'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="GetAttribute_22">
+                <ui:GetAttribute.Result>
+                  <OutArgument x:TypeArguments="x:String">[precoUnitario]</OutArgument>
+                </ui:GetAttribute.Result>
+                <ui:GetAttribute.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="49241bca-b2c3-4914-9c8c-bbd0e2daaf33" InformativeScreenshot="914948c51fca1ee4cdb9b80bc684dfca" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java idx='11' name='Preço Unitário Required' role='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:GetAttribute.Target>
+              </ui:GetAttribute>
+              <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="text" DisplayName="Get Attribute 'text Quantidade'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="GetAttribute_23">
+                <ui:GetAttribute.Result>
+                  <OutArgument x:TypeArguments="x:String">[quantidade]</OutArgument>
+                </ui:GetAttribute.Result>
+                <ui:GetAttribute.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="c2d19c92-f9ec-4d1d-85d8-dd8ef9cf73dd" InformativeScreenshot="87df21fd2673912379a01801f02153e6" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java idx='11' name='Quantidade Required' role='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:GetAttribute.Target>
+              </ui:GetAttribute>
+              <Assign DisplayName="Incrementa indice" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_33">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[saldoPO]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[Math.Round(Convert.ToDouble(quantidade.Replace(",","."))*Convert.ToDouble(precoUnitario.Replace(",",".")),2).ToString.Replace(".",",")]</InArgument>
+                </Assign.Value>
+              </Assign>
+            </Sequence>
+          </If.Then>
+        </If>
+        <If Condition="[indice=12]" sap:VirtualizedContainerService.HintSize="200,52" sap2010:WorkflowViewState.IdRef="If_28">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <If.Then>
+            <Sequence sap:VirtualizedContainerService.HintSize="376,500" sap2010:WorkflowViewState.IdRef="Sequence_27">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="text" DisplayName="Get Attribute 'text Preço Unitario'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="GetAttribute_24">
+                <ui:GetAttribute.Result>
+                  <OutArgument x:TypeArguments="x:String">[precoUnitario]</OutArgument>
+                </ui:GetAttribute.Result>
+                <ui:GetAttribute.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="cb7c676e-3f71-47bf-b89a-7bca22831217" InformativeScreenshot="914948c51fca1ee4cdb9b80bc684dfca" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java idx='12' name='Preço Unitário Required' role='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:GetAttribute.Target>
+              </ui:GetAttribute>
+              <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="text" DisplayName="Get Attribute 'text Quantidade'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="GetAttribute_25">
+                <ui:GetAttribute.Result>
+                  <OutArgument x:TypeArguments="x:String">[quantidade]</OutArgument>
+                </ui:GetAttribute.Result>
+                <ui:GetAttribute.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="87418a3f-ee2d-4f45-87a3-5841602ecae5" InformativeScreenshot="87df21fd2673912379a01801f02153e6" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java idx='12' name='Quantidade Required' role='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:GetAttribute.Target>
+              </ui:GetAttribute>
+              <Assign DisplayName="Incrementa indice" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_34">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[saldoPO]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[Math.Round(Convert.ToDouble(quantidade.Replace(",","."))*Convert.ToDouble(precoUnitario.Replace(",",".")),2).ToString.Replace(".",",")]</InArgument>
+                </Assign.Value>
+              </Assign>
+            </Sequence>
+          </If.Then>
+        </If>
+        <If Condition="[indice=13]" sap:VirtualizedContainerService.HintSize="200,52" sap2010:WorkflowViewState.IdRef="If_29">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <If.Then>
+            <Sequence sap:VirtualizedContainerService.HintSize="376,500" sap2010:WorkflowViewState.IdRef="Sequence_28">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="text" DisplayName="Get Attribute 'text Preço Unitario'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="GetAttribute_26">
+                <ui:GetAttribute.Result>
+                  <OutArgument x:TypeArguments="x:String">[precoUnitario]</OutArgument>
+                </ui:GetAttribute.Result>
+                <ui:GetAttribute.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="982ddaa2-32e6-46f7-b348-bea201bd0500" InformativeScreenshot="914948c51fca1ee4cdb9b80bc684dfca" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java idx='13' name='Preço Unitário Required' role='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:GetAttribute.Target>
+              </ui:GetAttribute>
+              <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="text" DisplayName="Get Attribute 'text Quantidade'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="GetAttribute_27">
+                <ui:GetAttribute.Result>
+                  <OutArgument x:TypeArguments="x:String">[quantidade]</OutArgument>
+                </ui:GetAttribute.Result>
+                <ui:GetAttribute.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="0c943165-ad4a-42ea-b585-796c4e2f1a1d" InformativeScreenshot="87df21fd2673912379a01801f02153e6" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java idx='13' name='Quantidade Required' role='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:GetAttribute.Target>
+              </ui:GetAttribute>
+              <Assign DisplayName="Incrementa indice" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_35">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[saldoPO]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[Math.Round(Convert.ToDouble(quantidade.Replace(",","."))*Convert.ToDouble(precoUnitario.Replace(",",".")),2).ToString.Replace(".",",")]</InArgument>
+                </Assign.Value>
+              </Assign>
+            </Sequence>
+          </If.Then>
+        </If>
+        <If Condition="[indice=14]" sap:VirtualizedContainerService.HintSize="200,52" sap2010:WorkflowViewState.IdRef="If_30">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <If.Then>
+            <Sequence sap:VirtualizedContainerService.HintSize="376,500" sap2010:WorkflowViewState.IdRef="Sequence_29">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="text" DisplayName="Get Attribute 'text Preço Unitario'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="GetAttribute_28">
+                <ui:GetAttribute.Result>
+                  <OutArgument x:TypeArguments="x:String">[precoUnitario]</OutArgument>
+                </ui:GetAttribute.Result>
+                <ui:GetAttribute.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="0606a882-91d7-4eb3-a19a-42590df4397e" InformativeScreenshot="914948c51fca1ee4cdb9b80bc684dfca" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java idx='14' name='Preço Unitário Required' role='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:GetAttribute.Target>
+              </ui:GetAttribute>
+              <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="text" DisplayName="Get Attribute 'text Quantidade'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="GetAttribute_29">
+                <ui:GetAttribute.Result>
+                  <OutArgument x:TypeArguments="x:String">[quantidade]</OutArgument>
+                </ui:GetAttribute.Result>
+                <ui:GetAttribute.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="7bd45a24-c4ab-4766-9475-0d42a9c54131" InformativeScreenshot="87df21fd2673912379a01801f02153e6" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java idx='14' name='Quantidade Required' role='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:GetAttribute.Target>
+              </ui:GetAttribute>
+              <Assign DisplayName="Incrementa indice" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_36">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[saldoPO]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[Math.Round(Convert.ToDouble(quantidade.Replace(",","."))*Convert.ToDouble(precoUnitario.Replace(",",".")),2).ToString.Replace(".",",")]</InArgument>
+                </Assign.Value>
+              </Assign>
+            </Sequence>
+          </If.Then>
+        </If>
+        <If Condition="[indice=15]" sap:VirtualizedContainerService.HintSize="200,52" sap2010:WorkflowViewState.IdRef="If_31">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <If.Then>
+            <Sequence sap:VirtualizedContainerService.HintSize="376,500" sap2010:WorkflowViewState.IdRef="Sequence_30">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="text" DisplayName="Get Attribute 'text Preço Unitario'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="GetAttribute_30">
+                <ui:GetAttribute.Result>
+                  <OutArgument x:TypeArguments="x:String">[precoUnitario]</OutArgument>
+                </ui:GetAttribute.Result>
+                <ui:GetAttribute.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="d22494f1-2a58-4e3b-ad03-e09858331d28" InformativeScreenshot="914948c51fca1ee4cdb9b80bc684dfca" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java idx='15' name='Preço Unitário Required' role='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:GetAttribute.Target>
+              </ui:GetAttribute>
+              <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="text" DisplayName="Get Attribute 'text Quantidade'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="GetAttribute_31">
+                <ui:GetAttribute.Result>
+                  <OutArgument x:TypeArguments="x:String">[quantidade]</OutArgument>
+                </ui:GetAttribute.Result>
+                <ui:GetAttribute.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="38f91ba5-a02f-4498-afca-ec3e990683bc" InformativeScreenshot="87df21fd2673912379a01801f02153e6" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java idx='15' name='Quantidade Required' role='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:GetAttribute.Target>
+              </ui:GetAttribute>
+              <Assign DisplayName="Incrementa indice" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_37">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[saldoPO]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[Math.Round(Convert.ToDouble(quantidade.Replace(",","."))*Convert.ToDouble(precoUnitario.Replace(",",".")),2).ToString.Replace(".",",")]</InArgument>
+                </Assign.Value>
+              </Assign>
+            </Sequence>
+          </If.Then>
+        </If>
+      </Sequence>
+      <Assign DisplayName="Incrementa indice" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_38">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[saldoPO]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[Math.Round(Convert.ToDouble(quantidade.Replace(",","."))*Convert.ToDouble(precoUnitario.Replace(",",".")),4).ToString.Replace(".",",")]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <If Condition="[Convert.ToDouble(BaseCalculoIss.Replace(&quot;,&quot;,&quot;.&quot;))=0]" sap:VirtualizedContainerService.HintSize="484,208" sap2010:WorkflowViewState.IdRef="If_32">
+        <If.Else>
+          <Assign DisplayName="Incrementa indice" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_39">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[BaseCalculoIss]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[saldoPO]</InArgument>
+            </Assign.Value>
+          </Assign>
+        </If.Else>
+      </If>
+    </Sequence>
+    <If Condition="[Not String.IsNullOrEmpty(PisCst)]" sap:VirtualizedContainerService.HintSize="950,520" sap2010:WorkflowViewState.IdRef="If_4">
+      <If.Then>
+        <Sequence sap:VirtualizedContainerService.HintSize="376,372" sap2010:WorkflowViewState.IdRef="Sequence_2">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateClick="{x:Null}" AlterIfDisabled="True" ClickType="CLICK_SINGLE" DisplayName="Click 'page tab  PIS'" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Click_2" KeyModifiers="None" MouseButton="BTN_LEFT">
+            <ui:Click.CursorPosition>
+              <ui:CursorPosition Position="Center">
+                <ui:CursorPosition.OffsetX>
+                  <InArgument x:TypeArguments="x:Int32" />
+                </ui:CursorPosition.OffsetX>
+                <ui:CursorPosition.OffsetY>
+                  <InArgument x:TypeArguments="x:Int32" />
+                </ui:CursorPosition.OffsetY>
+              </ui:CursorPosition>
+            </ui:Click.CursorPosition>
+            <ui:Click.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="91c4d572-c177-41b4-bc0f-37b60cf867cc" InformativeScreenshot="e11dd7f193e9083c7247a3377c554042" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java name='PIS' role='page tab' /&gt;">
+                <ui:Target.TimeoutMS>
+                  <InArgument x:TypeArguments="x:Int32" />
+                </ui:Target.TimeoutMS>
+                <ui:Target.WaitForReady>
+                  <InArgument x:TypeArguments="ui:WaitForReady" />
+                </ui:Target.WaitForReady>
+              </ui:Target>
+            </ui:Click.Target>
+          </ui:Click>
+          <ui:TypeInto ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" AlterIfDisabled="True" DisplayName="Type Into 'CST'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="TypeInto_7" Text="[PisCst + &quot;[k(enter)]&quot;]">
+            <ui:TypeInto.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="931ef770-d8af-4613-b880-6280cea15270" InformativeScreenshot="5cc11f5d9e638ee04f974cac282c0e68" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java name='PIS tab page CST*' role='text' /&gt;">
+                <ui:Target.TimeoutMS>
+                  <InArgument x:TypeArguments="x:Int32" />
+                </ui:Target.TimeoutMS>
+                <ui:Target.WaitForReady>
+                  <InArgument x:TypeArguments="ui:WaitForReady" />
+                </ui:Target.WaitForReady>
+              </ui:Target>
+            </ui:TypeInto.Target>
+          </ui:TypeInto>
+        </Sequence>
+      </If.Then>
+    </If>
+    <If Condition="[Not String.IsNullOrEmpty(CofinsCst)]" sap:VirtualizedContainerService.HintSize="950,520" sap2010:WorkflowViewState.IdRef="If_5">
+      <If.Then>
+        <Sequence sap:VirtualizedContainerService.HintSize="376,372" sap2010:WorkflowViewState.IdRef="Sequence_3">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateClick="{x:Null}" AlterIfDisabled="True" ClickType="CLICK_SINGLE" DisplayName="Click 'page tab  COFINS'" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Click_3" KeyModifiers="None" MouseButton="BTN_LEFT">
+            <ui:Click.CursorPosition>
+              <ui:CursorPosition Position="Center">
+                <ui:CursorPosition.OffsetX>
+                  <InArgument x:TypeArguments="x:Int32" />
+                </ui:CursorPosition.OffsetX>
+                <ui:CursorPosition.OffsetY>
+                  <InArgument x:TypeArguments="x:Int32" />
+                </ui:CursorPosition.OffsetY>
+              </ui:CursorPosition>
+            </ui:Click.CursorPosition>
+            <ui:Click.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="5ba12023-a154-4a4e-b5a4-f28c4c37e58d" InformativeScreenshot="b9c2b4ba178bc7901fa3b950a8bd7c68" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='Aplicativos Oracle - AMEPRJB' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java name='COFINS' role='page tab' /&gt;">
+                <ui:Target.TimeoutMS>
+                  <InArgument x:TypeArguments="x:Int32" />
+                </ui:Target.TimeoutMS>
+                <ui:Target.WaitForReady>
+                  <InArgument x:TypeArguments="ui:WaitForReady" />
+                </ui:Target.WaitForReady>
+              </ui:Target>
+            </ui:Click.Target>
+          </ui:Click>
+          <ui:TypeInto ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" AlterIfDisabled="True" DisplayName="Type Into 'text COFINS'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="TypeInto_8" Text="[CofinsCst + &quot;[k(enter)]&quot;]">
+            <ui:TypeInto.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="089e780c-23b7-4f6e-992c-efe5169c1502" InformativeScreenshot="c3a889f42a157cd34c38d6e34b25eaa4" Selector="&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' omit:title='' /&gt;&lt;java name='Invoice Lines*' role='internal frame' /&gt;&lt;java name='COFINS tab page C*' role='text' /&gt;">
+                <ui:Target.TimeoutMS>
+                  <InArgument x:TypeArguments="x:Int32" />
+                </ui:Target.TimeoutMS>
+                <ui:Target.WaitForReady>
+                  <InArgument x:TypeArguments="ui:WaitForReady" />
+                </ui:Target.WaitForReady>
+              </ui:Target>
+            </ui:TypeInto.Target>
+          </ui:TypeInto>
+        </Sequence>
+      </If.Then>
+    </If>
+    <If Condition="[(Not &quot;0&quot;.Equals(BaseCalculoIss) And Not String.IsNullOrEmpty(BaseCalculoIss)) And (Not &quot;0&quot;.Equals(ValorIss) And Not String.IsNullOrEmpty(ValorIss))]" DisplayName="If ValorIss and valorBaseIss is not empty or null" sap:VirtualizedContainerService.HintSize="950,235" sap2010:WorkflowViewState.IdRef="If_6">
+      <If.Then>
+        <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke NF Line ISS workflow" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Test/Oracle/Preenche ISS Linha.xaml">
+          <ui:InvokeWorkflowFile.Arguments>
+            <InArgument x:TypeArguments="x:String" x:Key="MunicipioFilial">[MunicipioFilial]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="BaseCalculo">[BaseCalculoIss]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="AliquotaIss">[AliquotaIss]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="ValorIss">[ValorIss]</InArgument>
+            <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="Config">[Config]</InArgument>
+            <InArgument x:TypeArguments="x:Int32" x:Key="Indice">[Indice]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="CodigoDoServicoLinha">[CodigoDoServicoLinha]</InArgument>
+          </ui:InvokeWorkflowFile.Arguments>
+        </ui:InvokeWorkflowFile>
+      </If.Then>
+    </If>
+  </Sequence>
+</Activity>
